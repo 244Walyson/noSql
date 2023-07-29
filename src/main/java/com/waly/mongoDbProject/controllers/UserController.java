@@ -1,5 +1,6 @@
 package com.waly.mongoDbProject.controllers;
 
+import com.waly.mongoDbProject.models.dto.PostDTO;
 import com.waly.mongoDbProject.models.dto.UserDTO;
 import com.waly.mongoDbProject.services.UserService;
 import jakarta.annotation.PostConstruct;
@@ -44,5 +45,17 @@ public class UserController {
         dto = service.update(dto, id);
 
         return ResponseEntity.ok(dto);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<PostDTO>> userPosts(@PathVariable String id){
+        List<PostDTO> posts = service.userPosts(id);
+        return ResponseEntity.ok(posts);
     }
 }
