@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.util.List;
 
 @RestController
@@ -27,6 +28,12 @@ public class PostController {
     @GetMapping("/titlesearch")
     public ResponseEntity<List<PostDTO>> findByTitle(@RequestParam(value = "text", defaultValue = "") String text){
         List<PostDTO> post = service.findByTitle(text);
+        return ResponseEntity.ok(post);
+    }
+
+    @GetMapping("/fullsearch")
+    public ResponseEntity<List<PostDTO>> fullseaxrch(@RequestParam(value = "text", defaultValue = "") String text, @RequestParam(value = "start", defaultValue = "") String start, @RequestParam(value = "end", defaultValue = "") String end){
+        List<PostDTO> post = service.fullSearch(text, start, end);
         return ResponseEntity.ok(post);
     }
 }
