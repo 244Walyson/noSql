@@ -33,6 +33,13 @@ public class UserService {
         return new UserDTO(entity);
     }
 
+    public UserDTO update(UserDTO dto, String id){
+        User entity = repository.findById(id).orElseThrow(()->new ResourceNotFoundException("id not found"));
+
+        copyDtoToEntity(dto, entity);
+        entity = repository.save(entity);
+        return new UserDTO(entity);
+    }
 
     public User copyDtoToEntity(UserDTO dto, User entity){
         entity.setName(dto.getName());
